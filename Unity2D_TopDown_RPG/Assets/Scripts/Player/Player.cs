@@ -5,6 +5,12 @@ public class Player : MonoBehaviour
     [Header("MovementSO")]
     public MovementSO movementType;
 
+    #region Animation
+    [Header("Animator")]
+    [field: SerializeField] public AnimHandler animHandler { get; private set; }
+    [field : SerializeField] public PlayerAnimationData animationData { get; private set; }
+    #endregion
+
     public PlayerInput input { get; private set; }
     public Rigidbody2D rb { get; private set; }
 
@@ -12,16 +18,16 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        movementStateMachine = new PlayerStateMachine(this);
-
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
+
+        animationData.Initialize();
     }
 
     private void Start()
     {
-        movementStateMachine.ChangeState(movementStateMachine.movementState);
-
+        movementStateMachine = new PlayerStateMachine(this);
+        movementStateMachine.ChangeState(movementStateMachine.runState);
     }
 
     private void Update()

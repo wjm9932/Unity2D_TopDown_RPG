@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: fe43fbd5bdfbec044bac5f8af7a73a12
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 293816
+  packageName: 8Direction Animated Character pack 2 - Top-Down pixel 2D Characters
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/TopDown 2D pixel Characters pack 2/Example scene/Scripts/SmoothCameraFollow.cs
+  uploadId: 709640
