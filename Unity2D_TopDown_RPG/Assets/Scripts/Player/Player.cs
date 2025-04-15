@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region Movement 
     [Header("MovementSO")]
     public MovementSO movementType;
+    #endregion
 
     #region Animation
-    [field: Header("Animator")]
-    [field: SerializeField] public AnimHandler animHandler { get; private set; }
+    [Header("Animation Data")]
+    [SerializeField] private PlayerAnimationData animationData;
+    public AnimationHandler<PlayerAnimationData> animationHandler { get; private set; }
     #endregion
+
     #region Player Forwrad
     public Vector2 lookDir { get; private set; }
     #endregion
-
 
     public PlayerInput input { get; private set; }
     public Rigidbody2D rb { get; private set; }
@@ -24,8 +27,8 @@ public class Player : MonoBehaviour
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
 
+        animationHandler = new AnimationHandler<PlayerAnimationData>(GetComponentInChildren<Animator>(), animationData);
         movementStateMachine = new PlayerStateMachine(this);
-        animHandler.animationData.Initialize();
     }
 
     private void Start()
@@ -36,7 +39,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         SetForward(input.moveInput);
-
         movementStateMachine.Update();
     }
 

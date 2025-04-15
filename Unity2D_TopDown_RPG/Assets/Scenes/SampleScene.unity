@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9765169c87c15ba4f89f2fc57e0b00cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dodgeBufferTime: 0
 --- !u!114 &513269311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +244,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementType: {fileID: 11400000, guid: 2f7745dcc53e47c4fb4754d78aa46c45, type: 2}
-  <animHandler>k__BackingField: {fileID: 978027264}
+  animationData:
+    <animEventTimeData>k__BackingField: {fileID: 11400000, guid: a6af02c957cb1e5478d738200faca62b, type: 2}
 --- !u!50 &513269313
 Rigidbody2D:
   serializedVersion: 5
@@ -285,7 +287,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 978027260}
-  - {fileID: 872413733}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &513269316
@@ -579,37 +580,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &872413732
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 872413733}
-  m_Layer: 0
-  m_Name: PlayerForward
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &872413733
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872413732}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 513269315}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &978027259
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,7 +592,6 @@ GameObject:
   - component: {fileID: 978027262}
   - component: {fileID: 978027261}
   - component: {fileID: 978027263}
-  - component: {fileID: 978027264}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -768,20 +737,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.1, y: 0.05}
   m_EdgeRadius: 0
---- !u!114 &978027264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 978027259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cbb3f69747e78141adb7e4004d717c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <animationData>k__BackingField:
-    <animEventTimeData>k__BackingField: {fileID: 11400000, guid: a6af02c957cb1e5478d738200faca62b, type: 2}
 --- !u!1 &1022918404
 GameObject:
   m_ObjectHideFlags: 0
@@ -5188,7 +5143,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.3, y: 0.3, z: 0.3}
+  Damping: {x: 0.5, y: 0.5, z: 0}
   Lookahead:
     Enabled: 0
     Time: 0

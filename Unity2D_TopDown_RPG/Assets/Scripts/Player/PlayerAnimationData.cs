@@ -1,12 +1,11 @@
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerAnimationData
+public class PlayerAnimationData : IInitializable
 {
     [field: Header("Animation Event Time Data")]
     [field: SerializeField] public PlayerAnimEventSO animEventTimeData { get; private set; }
 
-    [Header("Movement Group Parameter Names")]
     private string horizontalParameterName = "Horizontal";
     private string verticalParameterName = "Vertical";
     private string idleParameterName = "IsIdle";

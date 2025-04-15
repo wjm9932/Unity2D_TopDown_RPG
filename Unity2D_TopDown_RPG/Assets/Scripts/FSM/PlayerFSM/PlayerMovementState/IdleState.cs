@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class IdleState : IState
 {
+    private AnimationHandler<PlayerAnimationData> animationHandler;
     private PlayerStateMachine sm;
-    private AnimHandler animationHandler;
 
     public IdleState(PlayerStateMachine sm)
     {
         this.sm = sm;
-        animationHandler = sm.owner.animHandler;
+        animationHandler = sm.owner.animationHandler;
     }
 
     public void Enter()
@@ -20,11 +20,11 @@ public class IdleState : IState
     }
     public void Update()
     {
-        if(sm.owner.input.moveInput.sqrMagnitude > 0.01f)
+        if (sm.owner.input.moveInput.sqrMagnitude > 0.01f)
         {
             sm.ChangeState(sm.runState);
         }
-        if (sm.owner.input.isDodge == true)
+        if (sm.owner.input.dodgeBufferTime > 0f)
         {
             sm.ChangeState(sm.dodgeState);
         }
@@ -35,19 +35,6 @@ public class IdleState : IState
     public void Exit()
     {
     }
-    public void OnAnimationEnterEvent()
-    {
-    }
-    public void OnAnimationExitEvent()
-    {
-    }
-    public void OnAnimationTransitionEvent()
-    {
-    }
-    public void OnAnimatorIK()
-    {
-    }
-
     private void Deaccel()
     {
         Vector2 speedDif = Vector2.zero - sm.owner.rb.linearVelocity;

@@ -1,14 +1,15 @@
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class RunState : IState
 {
     private PlayerStateMachine sm;
-    private AnimHandler animationHandler;
+    private AnimationHandler<PlayerAnimationData> animationHandler;
 
     public RunState(PlayerStateMachine sm)
     {
         this.sm = sm;
-        animationHandler = sm.owner.animHandler;
+        animationHandler = sm.owner.animationHandler;
     }
 
     public void Enter()
@@ -25,7 +26,7 @@ public class RunState : IState
         {
             sm.ChangeState(sm.idleState);
         }
-        if(sm.owner.input.isDodge == true)
+        if(sm.owner.input.dodgeBufferTime > 0f)
         {
             sm.ChangeState(sm.dodgeState);
         }
@@ -39,18 +40,6 @@ public class RunState : IState
     {
         animationHandler.animator.SetBool(animationHandler.animationData.runParameterHash, false);
     }
-    public void OnAnimationEnterEvent()
-    {
-    }
-    public void OnAnimationExitEvent()
-    {
-    }
-    public void OnAnimationTransitionEvent()
-    {
-    }
-    public void OnAnimatorIK()
-    {
-    }
 
     private void Run()
     {
@@ -60,5 +49,10 @@ public class RunState : IState
         Vector2 movement = speedDif * sm.owner.movementType.runAccelAmount;
 
         sm.owner.rb.AddForce(movement, ForceMode2D.Force);
+    }
+
+    private void SetAnimationValue()
+    {
+       
     }
 }

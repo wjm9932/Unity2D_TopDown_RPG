@@ -5,42 +5,42 @@ using UnityEngine;
 public abstract class StateMachine
 {
     public IState currentState { get; private set; }
+    private IState pendingState;
+
     public void ChangeState(IState newState)
     {
-        if(currentState != null)
-        {
-            currentState.Exit();
-        }
-
-        currentState = newState;
-        currentState.Enter();
+        pendingState = newState;
     }
+
     public void Update()
     {
         currentState?.Update();
     }
+
     public void FixedUpdate()
     {
         currentState?.FixedUpdate();
     }
+
     public void LateUpdate()
     {
         currentState?.LateUpdate();
+
+        ApplyPendingStateChange();
     }
-    public void OnAnimationEnterEvent()
+
+    private void ApplyPendingStateChange()
     {
-        currentState?.OnAnimationEnterEvent();
-    }
-    public void OnAnimationExitEvent()
-    {
-        currentState?.OnAnimationExitEvent();
-    }
-    public void OnAnimationTransitionEvent()
-    {
-        currentState?.OnAnimationTransitionEvent();
-    }
-    public void OnAnimatorIK()
-    {
-        currentState?.OnAnimatorIK();
+        if (pendingState != null)
+        {
+            if (currentState != null)
+            {
+                currentState.Exit();
+            }
+
+            currentState = pendingState;
+            currentState.Enter();
+            pendingState = null;
+        }
     }
 }

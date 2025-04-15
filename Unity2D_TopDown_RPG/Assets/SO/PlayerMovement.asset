@@ -15,4 +15,4 @@ MonoBehaviour:
   runMaxSpeed: 8
   runAcceleration: 3
   runDecceleration: 5
-  <dodgeForce>k__BackingField: 10
+  <dodgeForce>k__BackingField: 12
