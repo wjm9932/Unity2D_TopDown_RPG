@@ -3,19 +3,21 @@ using UnityEngine;
 public class RunState : IState
 {
     private PlayerStateMachine sm;
-    private Animator animator;
-    private PlayerAnimationData animData;
+    private AnimHandler animationHandler;
 
     public RunState(PlayerStateMachine sm)
     {
         this.sm = sm;
-        animator = sm.owner.animHandler.animator;
-        animData = sm.owner.animationData;
+        animationHandler = sm.owner.animHandler;
     }
 
     public void Enter()
     {
-        animator.SetTrigger(animData.runParameterHash);
+        animationHandler.animator.SetBool(animationHandler.animationData.runParameterHash, true);
+    }
+    public void FixedUpdate()
+    {
+        Run();
     }
     public void Update()
     {
@@ -23,28 +25,19 @@ public class RunState : IState
         {
             sm.ChangeState(sm.idleState);
         }
-    }
-    public void FixedUpdate()
-    {
-        if (sm.currentState != this)
+        if(sm.owner.input.isDodge == true)
         {
-            return;
+            sm.ChangeState(sm.dodgeState);
         }
-
-        Run();
     }
     public void LateUpdate()
     {
-        if(sm.currentState != this)
-        {
-            return;
-        }
-
-        animator.SetFloat(animData.horizontalParameterHash, sm.owner.input.moveInput.x);
-        animator.SetFloat(animData.verticalParameterHash, sm.owner.input.moveInput.y);
+        animationHandler.animator.SetFloat(animationHandler.animationData.horizontalParameterHash, sm.owner.lookDir.x);
+        animationHandler.animator.SetFloat(animationHandler.animationData.verticalParameterHash, sm.owner.lookDir.y);
     }
     public void Exit()
     {
+        animationHandler.animator.SetBool(animationHandler.animationData.runParameterHash, false);
     }
     public void OnAnimationEnterEvent()
     {

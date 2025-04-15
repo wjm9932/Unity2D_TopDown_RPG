@@ -3,25 +3,20 @@ using UnityEngine;
 public class IdleState : IState
 {
     private PlayerStateMachine sm;
-    private Animator animator;
-    private PlayerAnimationData animData;
+    private AnimHandler animationHandler;
 
     public IdleState(PlayerStateMachine sm)
     {
         this.sm = sm;
-        animator = sm.owner.animHandler.animator;
-        animData = sm.owner.animationData;
+        animationHandler = sm.owner.animHandler;
     }
 
     public void Enter()
     {
-        float currentHorizontal = animator.GetFloat(animData.horizontalParameterHash);
-        float currentVertical = animator.GetFloat(animData.verticalParameterHash);
-
-        animator.SetTrigger(animData.idleParameterHash);
-
-        animator.SetFloat(animData.horizontalParameterHash, currentHorizontal);
-        animator.SetFloat(animData.verticalParameterHash, currentVertical);
+    }
+    public void FixedUpdate()
+    {
+        Deaccel();
     }
     public void Update()
     {
@@ -29,15 +24,10 @@ public class IdleState : IState
         {
             sm.ChangeState(sm.runState);
         }
-    }
-    public void FixedUpdate()
-    {
-        if(sm.currentState != this)
+        if (sm.owner.input.isDodge == true)
         {
-            return;
+            sm.ChangeState(sm.dodgeState);
         }
-
-        Deaccel();
     }
     public void LateUpdate()
     {

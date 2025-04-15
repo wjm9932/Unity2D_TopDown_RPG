@@ -3,24 +3,28 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerAnimationData
 {
+    [field: Header("Animation Event Time Data")]
+    [field: SerializeField] public PlayerAnimEventSO animEventTimeData { get; private set; }
 
     [Header("Movement Group Parameter Names")]
-    [Space()]
-    [SerializeField] private string idleParameterName = "Idle";
-    [SerializeField] private string runParameterName = "Run";
-    [SerializeField] private string horizontalParameterName = "Horizontal";
-    [SerializeField] private string verticalParameterName = "Vertical";
+    private string horizontalParameterName = "Horizontal";
+    private string verticalParameterName = "Vertical";
+    private string idleParameterName = "IsIdle";
+    private string runParameterName = "IsRun";
+    private string dodgeParameterName = "IsDodge";
 
-    public int idleParameterHash { get; private set; }
-    public int runParameterHash { get; private set; }
     public int horizontalParameterHash { get; private set; }
     public int verticalParameterHash { get; private set; }
+    public int idleParameterHash { get; private set; }
+    public int runParameterHash { get; private set; }
+    public int dodgeParameterHash { get; private set; }
 
     public void Initialize()
     {
-        idleParameterHash = Animator.StringToHash(idleParameterName);
-        runParameterHash = Animator.StringToHash(runParameterName);
         horizontalParameterHash = Animator.StringToHash(horizontalParameterName);
         verticalParameterHash = Animator.StringToHash(verticalParameterName);
+        idleParameterHash = Animator.StringToHash(idleParameterName);
+        runParameterHash = Animator.StringToHash(runParameterName);
+        dodgeParameterHash = Animator.StringToHash(dodgeParameterName);
     }
 }
