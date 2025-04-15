@@ -30,6 +30,14 @@ public class RunState : IState
         {
             sm.ChangeState(sm.dodgeState);
         }
+        if (sm.owner.input.attack_1BufferTime > 0f)
+        {
+            sm.ChangeState(sm.attack_1State);
+        }
+        if (sm.owner.input.dashAttackBufferTime > 0f)
+        {
+            sm.ChangeState(sm.dashAttackState);
+        }
     }
     public void LateUpdate()
     {
@@ -49,10 +57,5 @@ public class RunState : IState
         Vector2 movement = speedDif * sm.owner.movementType.runAccelAmount;
 
         sm.owner.rb.AddForce(movement, ForceMode2D.Force);
-    }
-
-    private void SetAnimationValue()
-    {
-       
     }
 }

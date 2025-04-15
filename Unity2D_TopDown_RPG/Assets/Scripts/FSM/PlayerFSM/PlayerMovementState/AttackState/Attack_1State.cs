@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class IdleState : IState
+public class Attack_1State : IState
 {
     private AnimationHandler<PlayerAnimationData> animationHandler;
     private PlayerStateMachine sm;
 
-    public IdleState(PlayerStateMachine sm)
+    public Attack_1State(PlayerStateMachine sm)
     {
         this.sm = sm;
         animationHandler = sm.owner.animationHandler;
@@ -13,28 +13,18 @@ public class IdleState : IState
 
     public void Enter()
     {
+        animationHandler.animator.SetBool(animationHandler.animationData.attack_1ParameterHash, true);
     }
+
     public void FixedUpdate()
     {
         Deaccel();
     }
     public void Update()
     {
-        if (sm.owner.input.moveInput.sqrMagnitude > 0.01f)
+        if (animationHandler.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= animationHandler.animationData.animEventTimeData.attack_1FinishTime)
         {
             sm.ChangeState(sm.runState);
-        }
-        if (sm.owner.input.dodgeBufferTime > 0f)
-        {
-            sm.ChangeState(sm.dodgeState);
-        }
-        if(sm.owner.input.attack_1BufferTime > 0f)
-        {
-            sm.ChangeState(sm.attack_1State);
-        }
-        if (sm.owner.input.dashAttackBufferTime > 0f)
-        {
-            sm.ChangeState(sm.dashAttackState);
         }
     }
     public void LateUpdate()
@@ -42,6 +32,7 @@ public class IdleState : IState
     }
     public void Exit()
     {
+        animationHandler.animator.SetBool(animationHandler.animationData.attack_1ParameterHash, false);
     }
     private void Deaccel()
     {

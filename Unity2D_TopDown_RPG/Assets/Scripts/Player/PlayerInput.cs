@@ -4,9 +4,11 @@ public class PlayerInput : MonoBehaviour
 {
     private string horizontal = "Horizontal";
     private string vertical = "Vertical";
-
+    private readonly float bufferTime = 0.2f;
     public Vector2 moveInput { get; private set; }
-    public float dodgeBufferTime;
+    public float dodgeBufferTime { get; private set; }
+    public float attack_1BufferTime { get; private set; }
+    public float dashAttackBufferTime { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,12 +20,22 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         dodgeBufferTime -= Time.deltaTime;
+        attack_1BufferTime -= Time.deltaTime;
+        dashAttackBufferTime -= Time.deltaTime;
 
         moveInput = new Vector2(Input.GetAxisRaw(horizontal), Input.GetAxisRaw(vertical)).normalized;
 
         if(Input.GetKeyDown(KeyCode.Space) == true)
         {
-            dodgeBufferTime = 0.2f;
+            dodgeBufferTime = bufferTime;
+        }
+        if(Input.GetKeyDown(KeyCode.Q) == true)
+        {
+            attack_1BufferTime = bufferTime;
+        }
+        if(Input.GetKeyDown(KeyCode.W) == true)
+        {
+            dashAttackBufferTime = bufferTime;
         }
     }
 }

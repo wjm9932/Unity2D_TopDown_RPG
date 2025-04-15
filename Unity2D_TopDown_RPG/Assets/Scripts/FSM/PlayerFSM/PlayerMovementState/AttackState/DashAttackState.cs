@@ -1,54 +1,52 @@
 using UnityEngine;
 
-public class DodgeState : IState
+public class DashAttackState : IState
 {
-    private PlayerStateMachine sm;
     private AnimationHandler<PlayerAnimationData> animationHandler;
+    private PlayerStateMachine sm;
 
-    private Vector2 dodgeDir;
-    private float currentForce;
-    private const float decelerationFactor = 0.0275f;
-    private const float minForceThreshold = 3f;
+    private Vector2 dashDir;
+    private float currentDashForce;
+    private float dashAttackTime;
 
-    public DodgeState(PlayerStateMachine sm)
+    private const float dashForce = 100f;
+    private const float decelerationFactor = 0.2f;
+    private readonly float targetDashAttackTime;
+
+    public DashAttackState(PlayerStateMachine sm)
     {
         this.sm = sm;
         animationHandler = sm.owner.animationHandler;
+        targetDashAttackTime = Utility.CalculateTimeUntilVelocityBelow(dashForce, decelerationFactor, 3.16f);
     }
 
     public void Enter()
     {
-        dodgeDir = sm.owner.lookDir.normalized;
-        currentForce = sm.owner.movementType.dodgeForce;
-        ApplyDodgeForce(currentForce);
-
-        animationHandler.animator.SetBool(animationHandler.animationData.dodgeParameterHash, true);
+        dashDir = sm.owner.lookDir;
+        dashAttackTime = targetDashAttackTime;
+        currentDashForce = dashForce;
+        animationHandler.animator.SetBool(animationHandler.animationData.dashAttackParameterHash, true);
     }
 
     public void FixedUpdate()
     {
+        ApplyDodgeForce(currentDashForce);
         Decelerate();
-
-        if (currentForce > minForceThreshold)
-        {
-            ApplyDodgeForce(currentForce);
-        }
     }
-
     public void Update()
     {
-        var animState = animationHandler.animator.GetCurrentAnimatorStateInfo(0);
-        if (animState.normalizedTime >= animationHandler.animationData.animEventTimeData.dodgeFinishTime)
+        if (dashAttackTime <= 0)
         {
             sm.ChangeState(sm.runState);
         }
+        dashAttackTime -= Time.deltaTime;
     }
-
-    public void LateUpdate() { }
-
+    public void LateUpdate()
+    {
+    }
     public void Exit()
     {
-        animationHandler.animator.SetBool(animationHandler.animationData.dodgeParameterHash, false);
+        animationHandler.animator.SetBool(animationHandler.animationData.dashAttackParameterHash, false);
     }
 
     private void Decelerate()
@@ -60,12 +58,12 @@ public class DodgeState : IState
         // the function compensates by reapplying force in the original dodgeDir direction.
         // At the same time, any force in an unintended direction caused by the collision
         // is neutralized through the speedDiff calculation.
-        currentForce *= 1 - decelerationFactor;
+        currentDashForce *= 1 - decelerationFactor;
     }
 
     private void ApplyDodgeForce(float force)
     {
-        Vector2 targetSpeed = dodgeDir * force;
+        Vector2 targetSpeed = dashDir * force;
         Vector2 speedDiff = targetSpeed - sm.owner.rb.linearVelocity;
 
         sm.owner.rb.AddForce(speedDiff, ForceMode2D.Impulse);

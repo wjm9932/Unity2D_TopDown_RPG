@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af2f365a888f034baadf4a48322a98a, type: 3}
   m_Name: PlayerAnimEventSO
   m_EditorClassIdentifier: 
-  <dodgeFinishTime>k__BackingField: 1
+  <dodgeFinishTime>k__BackingField: 0.99
+  <attack_1FinishTime>k__BackingField: 0.8
+  <attack_1AttackTriggerTime>k__BackingField: 0.425
