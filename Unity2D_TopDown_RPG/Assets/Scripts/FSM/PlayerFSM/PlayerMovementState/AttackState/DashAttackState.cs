@@ -9,7 +9,7 @@ public class DashAttackState : IState
     private float currentDashForce;
     private float dashAttackTime;
 
-    private const float dashForce = 100f;
+    private const float dashForce = 80f; // I dont know which value is better between 70 and 80. Im still testing
     private const float decelerationFactor = 0.2f;
     private readonly float targetDashAttackTime;
 

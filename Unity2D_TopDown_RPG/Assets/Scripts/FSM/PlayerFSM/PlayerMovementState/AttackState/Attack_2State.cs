@@ -14,8 +14,11 @@ public class Attack_2State : IState
     public void Enter()
     {
         animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.attack_2ParameterHash, true);
-        animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.horizontalParameterHash, sm.owner.input.moveInput.x);
-        animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.verticalParameterHash, sm.owner.input.moveInput.y);
+        if (sm.owner.input.moveInput.sqrMagnitude > 0.0001f)
+        {
+            animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.horizontalParameterHash, sm.owner.input.moveInput.x);
+            animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.verticalParameterHash, sm.owner.input.moveInput.y);
+        }
     }
 
     public void FixedUpdate()

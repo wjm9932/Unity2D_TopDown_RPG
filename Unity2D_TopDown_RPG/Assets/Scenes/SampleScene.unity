@@ -243,8 +243,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementType: {fileID: 11400000, guid: 2f7745dcc53e47c4fb4754d78aa46c45, type: 2}
-  animationData:
-    <animEventTimeData>k__BackingField: {fileID: 11400000, guid: a6af02c957cb1e5478d738200faca62b, type: 2}
 --- !u!50 &513269313
 Rigidbody2D:
   serializedVersion: 5
@@ -322,8 +320,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1.5}
+  m_Offset: {x: -0.038, y: 0}
+  m_Size: {x: 0.6, y: 1.5}
   m_Direction: 0
 --- !u!1 &519420028
 GameObject:
@@ -724,7 +722,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.1}
+  m_Offset: {x: 0.01, y: -0.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -734,7 +732,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.1, y: 0.05}
+  m_Size: {x: 0.06, y: 0.05}
   m_EdgeRadius: 0
 --- !u!1 &1022918404
 GameObject:
