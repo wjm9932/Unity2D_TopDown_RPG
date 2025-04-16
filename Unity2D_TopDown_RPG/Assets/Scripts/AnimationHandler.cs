@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class AnimationHandler<T> where T : IInitializable
-{
+public class AnimationHandler<T>
+{ 
     public Animator animator { get; private set; }
     public T animationData { get; private set; }
 
@@ -9,7 +9,5 @@ public class AnimationHandler<T> where T : IInitializable
     {
         this.animator = animator;
         this.animationData = animationData;
-
-        animationData.Initialize();
     }
 }

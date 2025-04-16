@@ -21,7 +21,7 @@ public class DodgeState : IState
         dodgeDir = sm.owner.lookDir.normalized;
         currentForce = sm.owner.movementType.dodgeForce;
 
-        animationHandler.animator.SetBool(animationHandler.animationData.dodgeParameterHash, true);
+        animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.dodgeParameterHash, true);
     }
 
     public void FixedUpdate()
@@ -50,7 +50,7 @@ public class DodgeState : IState
 
     public void Exit()
     {
-        animationHandler.animator.SetBool(animationHandler.animationData.dodgeParameterHash, false);
+        animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.dodgeParameterHash, false);
     }
 
     private void Decelerate()

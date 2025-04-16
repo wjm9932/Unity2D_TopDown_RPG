@@ -1,17 +1,14 @@
 using UnityEngine;
 
-[System.Serializable]
-public class PlayerAnimationData : IInitializable
+public class PlayerAnimationParameterData
 {
-    [field: Header("Animation Event Time Data")]
-    [field: SerializeField] public PlayerAnimEventSO animEventTimeData { get; private set; }
-
     private string horizontalParameterName = "Horizontal";
     private string verticalParameterName = "Vertical";
     private string idleParameterName = "IsIdle";
     private string runParameterName = "IsRun";
     private string dodgeParameterName = "IsDodge";
     private string attack_1ParameterName = "IsAttack_1";
+    private string attack_2ParameterName = "IsAttack_2";
     private string dashAttackParameterName = "IsDashAttack";
 
     public int horizontalParameterHash { get; private set; }
@@ -20,9 +17,10 @@ public class PlayerAnimationData : IInitializable
     public int runParameterHash { get; private set; }
     public int dodgeParameterHash { get; private set; }
     public int attack_1ParameterHash { get; private set; }
+    public int attack_2ParameterHash { get; private set; }
     public int dashAttackParameterHash { get; private set; }
 
-    public void Initialize()
+    public PlayerAnimationParameterData()
     {
         horizontalParameterHash = Animator.StringToHash(horizontalParameterName);
         verticalParameterHash = Animator.StringToHash(verticalParameterName);
@@ -30,6 +28,7 @@ public class PlayerAnimationData : IInitializable
         runParameterHash = Animator.StringToHash(runParameterName);
         dodgeParameterHash = Animator.StringToHash(dodgeParameterName);
         attack_1ParameterHash = Animator.StringToHash(attack_1ParameterName);
+        attack_2ParameterHash = Animator.StringToHash(attack_2ParameterName);
         dashAttackParameterHash = Animator.StringToHash(dashAttackParameterName);
     }
 }

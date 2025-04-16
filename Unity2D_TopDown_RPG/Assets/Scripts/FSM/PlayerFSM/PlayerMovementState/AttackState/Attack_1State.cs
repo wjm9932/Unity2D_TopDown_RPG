@@ -13,7 +13,7 @@ public class Attack_1State : IState
 
     public void Enter()
     {
-        animationHandler.animator.SetBool(animationHandler.animationData.attack_1ParameterHash, true);
+        animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.attack_1ParameterHash, true);
     }
 
     public void FixedUpdate()
@@ -22,7 +22,12 @@ public class Attack_1State : IState
     }
     public void Update()
     {
-        if (animationHandler.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= animationHandler.animationData.animEventTimeData.attack_1FinishTime)
+        float normalizedTime = animationHandler.animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        if (normalizedTime >= animationHandler.animationData.animEventTimeData.attack_2InputEnableTime && sm.owner.input.autoAttackBufferTime >= 0)
+        {
+            sm.ChangeState(sm.attack_2State);
+        }
+        if (normalizedTime >= animationHandler.animationData.animEventTimeData.attack_1FinishTime)
         {
             sm.ChangeState(sm.runState);
         }
@@ -32,7 +37,7 @@ public class Attack_1State : IState
     }
     public void Exit()
     {
-        animationHandler.animator.SetBool(animationHandler.animationData.attack_1ParameterHash, false);
+        animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.attack_1ParameterHash, false);
     }
     private void Deaccel()
     {

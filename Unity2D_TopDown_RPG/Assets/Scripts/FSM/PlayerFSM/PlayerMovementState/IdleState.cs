@@ -28,7 +28,7 @@ public class IdleState : IState
         {
             sm.ChangeState(sm.dodgeState);
         }
-        if(sm.owner.input.attack_1BufferTime > 0f)
+        if(sm.owner.input.autoAttackBufferTime > 0f)
         {
             sm.ChangeState(sm.attack_1State);
         }

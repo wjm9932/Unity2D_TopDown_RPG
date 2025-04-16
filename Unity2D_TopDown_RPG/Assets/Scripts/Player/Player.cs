@@ -8,8 +8,6 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Animation
-    [Header("Animation Data")]
-    [SerializeField] private PlayerAnimationData animationData;
     public AnimationHandler<PlayerAnimationData> animationHandler { get; private set; }
     #endregion
 
@@ -27,7 +25,7 @@ public class Player : MonoBehaviour
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
 
-        animationHandler = new AnimationHandler<PlayerAnimationData>(GetComponentInChildren<Animator>(), animationData);
+        animationHandler = new AnimationHandler<PlayerAnimationData>(GetComponentInChildren<Animator>(), new PlayerAnimationData());
         movementStateMachine = new PlayerStateMachine(this);
     }
 

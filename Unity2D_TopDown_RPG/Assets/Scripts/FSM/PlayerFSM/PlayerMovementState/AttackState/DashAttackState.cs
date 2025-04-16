@@ -25,7 +25,8 @@ public class DashAttackState : IState
         dashDir = sm.owner.lookDir;
         dashAttackTime = targetDashAttackTime;
         currentDashForce = dashForce;
-        animationHandler.animator.SetBool(animationHandler.animationData.dashAttackParameterHash, true);
+
+        animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.dashAttackParameterHash, true);
     }
 
     public void FixedUpdate()
@@ -46,7 +47,7 @@ public class DashAttackState : IState
     }
     public void Exit()
     {
-        animationHandler.animator.SetBool(animationHandler.animationData.dashAttackParameterHash, false);
+        animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.dashAttackParameterHash, false);
     }
 
     private void Decelerate()

@@ -14,7 +14,7 @@ public class RunState : IState
 
     public void Enter()
     {
-        animationHandler.animator.SetBool(animationHandler.animationData.runParameterHash, true);
+        animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.runParameterHash, true);
     }
     public void FixedUpdate()
     {
@@ -30,7 +30,7 @@ public class RunState : IState
         {
             sm.ChangeState(sm.dodgeState);
         }
-        if (sm.owner.input.attack_1BufferTime > 0f)
+        if (sm.owner.input.autoAttackBufferTime > 0f)
         {
             sm.ChangeState(sm.attack_1State);
         }
@@ -41,12 +41,12 @@ public class RunState : IState
     }
     public void LateUpdate()
     {
-        animationHandler.animator.SetFloat(animationHandler.animationData.horizontalParameterHash, sm.owner.lookDir.x);
-        animationHandler.animator.SetFloat(animationHandler.animationData.verticalParameterHash, sm.owner.lookDir.y);
+        animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.horizontalParameterHash, sm.owner.lookDir.x);
+        animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.verticalParameterHash, sm.owner.lookDir.y);
     }
     public void Exit()
     {
-        animationHandler.animator.SetBool(animationHandler.animationData.runParameterHash, false);
+        animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.runParameterHash, false);
     }
 
     private void Run()

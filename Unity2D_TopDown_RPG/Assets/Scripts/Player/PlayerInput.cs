@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
     private readonly float bufferTime = 0.2f;
     public Vector2 moveInput { get; private set; }
     public float dodgeBufferTime { get; private set; }
-    public float attack_1BufferTime { get; private set; }
+    public float autoAttackBufferTime { get; private set; }
     public float dashAttackBufferTime { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         dodgeBufferTime -= Time.deltaTime;
-        attack_1BufferTime -= Time.deltaTime;
+        autoAttackBufferTime -= Time.deltaTime;
         dashAttackBufferTime -= Time.deltaTime;
 
         moveInput = new Vector2(Input.GetAxisRaw(horizontal), Input.GetAxisRaw(vertical)).normalized;
@@ -31,7 +31,7 @@ public class PlayerInput : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Q) == true)
         {
-            attack_1BufferTime = bufferTime;
+            autoAttackBufferTime = bufferTime;
         }
         if(Input.GetKeyDown(KeyCode.W) == true)
         {
