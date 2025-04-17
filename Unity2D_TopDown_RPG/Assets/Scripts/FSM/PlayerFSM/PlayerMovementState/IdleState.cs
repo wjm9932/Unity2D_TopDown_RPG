@@ -16,7 +16,7 @@ public class IdleState : IState
     }
     public void FixedUpdate()
     {
-        Deaccel();
+        Decelerate();
     }
     public void Update()
     {
@@ -43,7 +43,7 @@ public class IdleState : IState
     public void Exit()
     {
     }
-    private void Deaccel()
+    private void Decelerate()
     {
         Vector2 speedDif = Vector2.zero - sm.owner.rb.linearVelocity;
         Vector2 movement = speedDif * sm.owner.movementType.runDeccelAmount;

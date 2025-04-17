@@ -7,8 +7,7 @@ public class DodgeState : IState
 
     private Vector2 dodgeDir;
     private float currentForce;
-    private const float decelerationFactor = 0.08f;
-    private const float minForceThreshold = 8f;
+    private const float minForceThreshold = 6f;
 
     public DodgeState(PlayerStateMachine sm)
     {
@@ -62,7 +61,7 @@ public class DodgeState : IState
         // the function compensates by reapplying force in the original dodgeDir direction.
         // At the same time, any force in an unintended direction caused by the collision
         // is neutralized through the speedDiff calculation.
-        currentForce *= 1 - decelerationFactor;
+        currentForce *= 1 - sm.owner.movementType.dodgeDecelerationFactor;
     }
 
     private void ApplyDodgeForce(float force)

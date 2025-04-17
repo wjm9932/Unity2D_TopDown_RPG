@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        SetForward(input.moveInput);
         movementStateMachine.Update();
     }
 
@@ -50,7 +49,7 @@ public class Player : MonoBehaviour
         movementStateMachine.LateUpdate();
     }
 
-    private void SetForward(Vector2 dir)
+    public void SetForward(Vector2 dir)
     {
         if (dir.sqrMagnitude > 0.001f)
             lookDir = dir.normalized;

@@ -23,7 +23,7 @@ public class Attack_2State : IState
 
     public void FixedUpdate()
     {
-        Deaccel();
+        Decelerate();
     }
     public void Update()
     {
@@ -39,7 +39,7 @@ public class Attack_2State : IState
     {
         animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.attack_2ParameterHash, false);
     }
-    private void Deaccel()
+    private void Decelerate()
     {
         Vector2 speedDif = Vector2.zero - sm.owner.rb.linearVelocity;
         Vector2 movement = speedDif * sm.owner.movementType.runDeccelAmount;

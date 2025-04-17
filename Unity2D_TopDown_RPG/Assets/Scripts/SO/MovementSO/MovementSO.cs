@@ -13,6 +13,11 @@ public class MovementSO : ScriptableObject
 
     [field: Header("Dodge")]
     [field: SerializeField] public float dodgeForce { get; private set; }
+    [field: SerializeField] public float dodgeDecelerationFactor { get; private set; }
+
+    [field: Header("Dash Attack")]
+    [field: SerializeField] public float dsahForce { get; private set; }
+    [field: SerializeField] public float dashDecelerationFactor { get; private set; }
 
     private void OnValidate()
     {
@@ -21,6 +26,9 @@ public class MovementSO : ScriptableObject
 
         runAccelAmount = ((1 / Time.fixedDeltaTime) * runAcceleration) / runMaxSpeed;
         runDeccelAmount = ((1 / Time.fixedDeltaTime) * runDecceleration) / runMaxSpeed;
+
+        dodgeDecelerationFactor = Mathf.Clamp01(dodgeDecelerationFactor);
+        dashDecelerationFactor = Mathf.Clamp01(dashDecelerationFactor);
     }
 }
 

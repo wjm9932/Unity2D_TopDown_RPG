@@ -9,22 +9,22 @@ public class DashAttackState : IState
     private float currentDashForce;
     private float dashAttackTime;
 
-    private const float dashForce = 80f; // I dont know which value is better between 70 and 80. Im still testing
-    private const float decelerationFactor = 0.2f;
+    //private const float dashForce = 80f; // I dont know which value is better between 70 and 80. Im still testing
+    //private const float decelerationFactor = 0.2f;
     private readonly float targetDashAttackTime;
 
     public DashAttackState(PlayerStateMachine sm)
     {
         this.sm = sm;
         animationHandler = sm.owner.animationHandler;
-        targetDashAttackTime = Utility.CalculateTimeUntilVelocityBelow(dashForce, decelerationFactor, 3.16f);
+        targetDashAttackTime = Utility.CalculateTimeUntilVelocityBelow(sm.owner.movementType.dsahForce, sm.owner.movementType.dashDecelerationFactor, 3.16f);
     }
 
     public void Enter()
     {
         dashDir = sm.owner.lookDir;
         dashAttackTime = targetDashAttackTime;
-        currentDashForce = dashForce;
+        currentDashForce = sm.owner.movementType.dsahForce;
 
         animationHandler.animator.SetBool(animationHandler.animationData.animParameterData.dashAttackParameterHash, true);
     }
@@ -59,7 +59,7 @@ public class DashAttackState : IState
         // the function compensates by reapplying force in the original dodgeDir direction.
         // At the same time, any force in an unintended direction caused by the collision
         // is neutralized through the speedDiff calculation.
-        currentDashForce *= 1 - decelerationFactor;
+        currentDashForce *= 1 - sm.owner.movementType.dashDecelerationFactor;
     }
 
     private void ApplyDodgeForce(float force)

@@ -22,6 +22,9 @@ public class RunState : IState
     }
     public void Update()
     {
+        sm.owner.SetForward(sm.owner.input.moveInput);
+        UpdateAnimations();
+
         if (sm.owner.input.moveInput.sqrMagnitude < 0.01f)
         {
             sm.ChangeState(sm.idleState);
@@ -41,8 +44,7 @@ public class RunState : IState
     }
     public void LateUpdate()
     {
-        animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.horizontalParameterHash, sm.owner.lookDir.x);
-        animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.verticalParameterHash, sm.owner.lookDir.y);
+        
     }
     public void Exit()
     {
@@ -57,5 +59,11 @@ public class RunState : IState
         Vector2 movement = speedDif * sm.owner.movementType.runAccelAmount;
 
         sm.owner.rb.AddForce(movement, ForceMode2D.Force);
+    }
+
+    private void UpdateAnimations()
+    {
+        animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.horizontalParameterHash, sm.owner.lookDir.x);
+        animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.verticalParameterHash, sm.owner.lookDir.y);
     }
 }
