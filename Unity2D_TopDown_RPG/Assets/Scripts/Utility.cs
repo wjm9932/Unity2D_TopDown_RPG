@@ -23,4 +23,16 @@ public static class Utility
         return time;
     }
 
+    public static Vector2[] GenerateDirections(int resolution)
+    {
+        Vector2[] directions = new Vector2[resolution];
+        float angleStep = 360f / resolution;
+        for (int i = 0; i < resolution; i++)
+        {
+            float angle = angleStep * i * Mathf.Deg2Rad;
+            directions[i] = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        }
+        return directions;
+    }
+
 }

@@ -17,5 +17,5 @@ MonoBehaviour:
   runDecceleration: 5
   <dodgeForce>k__BackingField: 18
   <dodgeDecelerationFactor>k__BackingField: 0.1
-  <dsahForce>k__BackingField: 80
+  <dsahForce>k__BackingField: 70
   <dashDecelerationFactor>k__BackingField: 0.2
