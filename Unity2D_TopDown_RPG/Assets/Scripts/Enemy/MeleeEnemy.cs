@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour
@@ -5,8 +6,8 @@ public class MeleeEnemy : MonoBehaviour
     public ContextBasedSteeringAgent steeringAgent { private set; get; }
     public Rigidbody2D rb { private set; get; }
 
-    [field : Header("Movement SO")]
-    [field : SerializeField] public EnemyMovementSO movementSO { get; private set; }
+    [field: Header("Movement SO")]
+    [field: SerializeField] public EnemyMovementSO movementSO { get; private set; }
 
     [Header("Steering Data")]
     [SerializeField] private LayerMask targetLayer;
@@ -14,7 +15,7 @@ public class MeleeEnemy : MonoBehaviour
     [SerializeField] GameObject tempTarget;
 
     private BehaviorTree bt;
-
+    private bool isStrafing;
     private void Awake()
     {
         steeringAgent = new ContextBasedSteeringAgent(resolution);
@@ -29,7 +30,6 @@ public class MeleeEnemy : MonoBehaviour
     private void Update()
     {
         steeringAgent.GetDangerWeight(transform.position, targetLayer);
-
         bt.root.Evaluate();
     }
 
@@ -47,10 +47,37 @@ public class MeleeEnemy : MonoBehaviour
         bt = new BehaviorTreeBuilder(blackboard)
             .AddSelector()
                 .AddSequence()
-                    .AddAction(new Track(blackboard))
+                    .AddCondition(() => Vector2.Distance(transform.position, tempTarget.transform.position) < 3f)
+                    .AddAction(new Flee(blackboard))
                 .EndComposite()
+                .AddSequence()
+                    .AddCondition(() => ShouldStrafe(isStrafing))
+                    .AddAction(new Strafe(blackboard))
+                .EndComposite()
+                .AddAction(new Track(blackboard))
             .EndComposite()
-            .Build();            
+            .Build();
+    }
+    private bool ShouldStrafe(bool currentState)
+    {
+        float d = Vector2.Distance(transform.position, tempTarget.transform.position);
+
+        bool nextState = currentState;
+
+        if (currentState)
+        {
+            if (d > 6f)
+                nextState = false;
+        }
+        else
+        {
+            if (d >= 3f && d < 5f)
+                nextState = true;
+        }
+
+        isStrafing = nextState;
+
+        return nextState;
     }
 
     private void OnDrawGizmos()

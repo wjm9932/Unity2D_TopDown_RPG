@@ -11,6 +11,14 @@ public class EnemyMovementSO : ScriptableObject
     [SerializeField] private float runDecceleration; //The speed at which our player decelerates from their current speed, can be set to runMaxSpeed for instant deceleration down to 0 for none at all
     [HideInInspector] public float runDeccelAmount { get; private set; } //Actual force (multiplied with speedDiff) applied to the player .
 
+    [Header("Flee")]
+    public float fleeMaxSpeed;
+    [SerializeField] private float fleeAcceleration;
+    [HideInInspector] public float fleeAccelAmount { get; private set; }
+
+    [SerializeField] private float fleeDecceleration;
+    [HideInInspector] public float fleeDeccelAmount { get; private set; }
+
     private void OnValidate()
     {
         runAcceleration = Mathf.Clamp(runAcceleration, 0.01f, runMaxSpeed);
@@ -18,5 +26,11 @@ public class EnemyMovementSO : ScriptableObject
 
         runAccelAmount = ((1 / Time.fixedDeltaTime) * runAcceleration) / runMaxSpeed;
         runDeccelAmount = ((1 / Time.fixedDeltaTime) * runDecceleration) / runMaxSpeed;
+
+        fleeAccelAmount = Mathf.Clamp(fleeAcceleration, 0.01f, fleeMaxSpeed);
+        fleeDeccelAmount = Mathf.Clamp(fleeDecceleration, 0.01f, fleeMaxSpeed);
+
+        fleeAccelAmount = ((1 / Time.fixedDeltaTime) * fleeAcceleration) / fleeMaxSpeed;
+        fleeDeccelAmount = ((1 / Time.fixedDeltaTime) * fleeDecceleration) / fleeMaxSpeed;
     }
 }

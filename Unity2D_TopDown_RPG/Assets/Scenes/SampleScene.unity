@@ -234,7 +234,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
-  resolution: 16
+  resolution: 40
   tempTarget: {fileID: 513269309}
 --- !u!50 &453463562
 Rigidbody2D:

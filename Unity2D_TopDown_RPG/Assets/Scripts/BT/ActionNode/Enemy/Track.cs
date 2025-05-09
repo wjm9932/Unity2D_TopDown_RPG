@@ -12,7 +12,7 @@ public class Track : IAction
 
     public void OnEnter()
     {
-
+        Debug.Log("123");
     }
     public NodeState Execute()
     {

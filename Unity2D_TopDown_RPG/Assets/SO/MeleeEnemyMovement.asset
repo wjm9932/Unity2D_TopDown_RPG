@@ -15,3 +15,6 @@ MonoBehaviour:
   runMaxSpeed: 3
   runAcceleration: 1
   runDecceleration: 2
+  fleeMaxSpeed: 2
+  fleeAcceleration: 0.75
+  fleeDecceleration: 1
