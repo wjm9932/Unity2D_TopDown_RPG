@@ -12,7 +12,7 @@ public class MeleeEnemy : MonoBehaviour
     [Header("Steering Data")]
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private int resolution;
-    [SerializeField] GameObject tempTarget;
+    [SerializeField] private GameObject tempTarget;
 
     private BehaviorTree bt;
     private bool isStrafing;
