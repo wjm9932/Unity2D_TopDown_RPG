@@ -19,6 +19,14 @@ public class EnemyMovementSO : ScriptableObject
     [SerializeField] private float fleeDecceleration;
     [HideInInspector] public float fleeDeccelAmount { get; private set; }
 
+    [Header("Strafe")]
+    public float strafeMaxSpeed;
+    [SerializeField] private float strafeAcceleration;
+    [HideInInspector] public float strafeAccelAmount { get; private set; }
+
+    [SerializeField] private float strafeDecceleration;
+    [HideInInspector] public float strafeDeccelAmount { get; private set; }
+
     private void OnValidate()
     {
         runAcceleration = Mathf.Clamp(runAcceleration, 0.01f, runMaxSpeed);
@@ -32,5 +40,11 @@ public class EnemyMovementSO : ScriptableObject
 
         fleeAccelAmount = ((1 / Time.fixedDeltaTime) * fleeAcceleration) / fleeMaxSpeed;
         fleeDeccelAmount = ((1 / Time.fixedDeltaTime) * fleeDecceleration) / fleeMaxSpeed;
+
+        strafeAccelAmount = Mathf.Clamp(strafeAcceleration, 0.01f, strafeMaxSpeed);
+        strafeDeccelAmount = Mathf.Clamp(strafeDecceleration, 0.01f, strafeMaxSpeed);
+
+        strafeAccelAmount = ((1 / Time.fixedDeltaTime) * strafeAcceleration) / strafeMaxSpeed;
+        strafeDeccelAmount = ((1 / Time.fixedDeltaTime) * strafeDecceleration) / strafeMaxSpeed;
     }
 }

@@ -115,9 +115,9 @@ public class Strafe : IAction
     private void Move()
     {
         int dir = GetFinalDirection();
-        Vector2 targetSpeed = owner.steeringAgent.directions[dir] * owner.movementSO.runMaxSpeed;
+        Vector2 targetSpeed = owner.steeringAgent.directions[dir] * owner.movementSO.strafeMaxSpeed;
         Vector2 speedDif = targetSpeed - owner.rb.linearVelocity;
-        Vector2 movement = speedDif * owner.movementSO.runAccelAmount;
+        Vector2 movement = speedDif * owner.movementSO.strafeAccelAmount;
         owner.rb.AddForce(movement, ForceMode2D.Force);
     }
 

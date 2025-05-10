@@ -23,12 +23,12 @@ public class Attack_2State : IState
             animationHandler.animator.SetFloat(animationHandler.animationData.animParameterData.verticalParameterHash, sm.owner.lookDir.y);
         }
 
-        sm.owner.rb.AddForce(sm.owner.lookDir * 50f, ForceMode2D.Impulse);
+        //sm.owner.rb.AddForce(sm.owner.lookDir * 50f, ForceMode2D.Impulse);
     }
 
     public void FixedUpdate()
     {
-        Decelerate();
+        //Decelerate();
     }
     public void Update()
     {

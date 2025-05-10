@@ -18,3 +18,6 @@ MonoBehaviour:
   fleeMaxSpeed: 2
   fleeAcceleration: 0.75
   fleeDecceleration: 1
+  strafeMaxSpeed: 2
+  strafeAcceleration: 0.5
+  strafeDecceleration: 1
