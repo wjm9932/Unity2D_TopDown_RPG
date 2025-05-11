@@ -13,9 +13,12 @@ public class Track : IAction
     public void OnEnter()
     {
         Debug.Log("Enter Track");
+
+        owner.animationHandler.animator.SetBool(owner.animationHandler.animationData.animParameterData.trackParameterHash, true);
     }
     public NodeState Execute()
     {
+        UpdateAnimations();
 
         return NodeState.Running;
     }
@@ -27,7 +30,7 @@ public class Track : IAction
     }
     public void OnExit()
     {
-
+        owner.animationHandler.animator.SetBool(owner.animationHandler.animationData.animParameterData.trackParameterHash, false);
     }
 
     void GetInterestWeight()
@@ -67,5 +70,12 @@ public class Track : IAction
         Vector2 movement = speedDif * owner.movementSO.runAccelAmount;
 
         owner.rb.AddForce(movement, ForceMode2D.Force);
+    }
+    private void UpdateAnimations()
+    {
+        int closestDirIndex = Utility.GetClosestDirectionIndex(Utility.GetAnimationDirections(), owner.rb.linearVelocity);
+
+        owner.animationHandler.animator.SetFloat(owner.animationHandler.animationData.animParameterData.horizontalParameterHash, Utility.GetAnimationDirections()[closestDirIndex].x);
+        owner.animationHandler.animator.SetFloat(owner.animationHandler.animationData.animParameterData.verticalParameterHash, Utility.GetAnimationDirections()[closestDirIndex].y);
     }
 }

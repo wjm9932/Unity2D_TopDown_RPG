@@ -5,8 +5,8 @@ public class Strafe : IAction
     private MeleeEnemy owner;
     private bool isClockWise;
     private float duration;
-    // 방향 전환 결정을 위한 임계값
-    private const float DIRECTION_SWITCH_THRESHOLD = 0.1f;
+
+    private const float DIRECTION_SWITCH_THRESHOLD = 0.3f;
 
     public Strafe(Blackboard blackBoard)
     {
@@ -19,16 +19,16 @@ public class Strafe : IAction
         Debug.Log("Enter Strafe");
         isClockWise = GetDirection();
         duration = GetRandomDuration();
+
+        owner.animationHandler.animator.SetBool(owner.animationHandler.animationData.animParameterData.strafeParameterHash, true);
+        SetStrafeAnimationDirection(isClockWise);
     }
 
     public NodeState Execute()
     {
-        if (duration <= 0f)
-        {
-            isClockWise = GetDirection();
-            duration = GetRandomDuration();
-        }
-        duration -= Time.deltaTime;
+        ChangeStrafeDirectionAndDuration();
+        UpdateAnimations();
+
         return NodeState.Running;
     }
 
@@ -40,6 +40,7 @@ public class Strafe : IAction
 
     public void OnExit()
     {
+        owner.animationHandler.animator.SetBool(owner.animationHandler.animationData.animParameterData.strafeParameterHash, false);
     }
 
     void GetInterestWeightAndCheckDirectionSwitch()
@@ -50,7 +51,7 @@ public class Strafe : IAction
         if (oppositeDirectionPriority - currentDirectionPriority >= DIRECTION_SWITCH_THRESHOLD)
         {
             isClockWise = !isClockWise;
-            Debug.Log("Strafe direction switched due to obstacle. New direction: " + (isClockWise ? "Clockwise" : "Counter-Clockwise"));
+            SetStrafeAnimationDirection(isClockWise);
         }
 
         SetInterestWeightForCurrentDirection();
@@ -88,13 +89,14 @@ public class Strafe : IAction
     private Vector2 PerpendicularVector(bool clockwise)
     {
         Vector2 toTarget = blackboard.GetData<GameObject>("target").transform.position - owner.transform.position;
-        if (clockwise)
+        if (clockwise == true)
         {
-            return new Vector2(toTarget.y, -toTarget.x);
+            return new Vector2(-toTarget.y, toTarget.x);
+
         }
         else
         {
-            return new Vector2(-toTarget.y, toTarget.x);
+            return new Vector2(toTarget.y, -toTarget.x);
         }
     }
 
@@ -129,5 +131,34 @@ public class Strafe : IAction
     private float GetRandomDuration()
     {
         return Random.Range(2f, 5f);
+    }
+
+    private void SetStrafeAnimationDirection(bool isClockWise)
+    {
+        if (isClockWise == true)
+        {
+            owner.animationHandler.animator.SetBool(owner.animationHandler.animationData.animParameterData.strafeIsClockWiseParameterHash, true);
+        }
+        else
+        {
+            owner.animationHandler.animator.SetBool(owner.animationHandler.animationData.animParameterData.strafeIsClockWiseParameterHash, false);
+        }
+    }
+    private void ChangeStrafeDirectionAndDuration()
+    {
+        if (duration <= 0f)
+        {
+            isClockWise = GetDirection();
+            duration = GetRandomDuration();
+            SetStrafeAnimationDirection(isClockWise);
+        }
+        duration -= Time.deltaTime;
+    }
+    private void UpdateAnimations()
+    {
+        int closestDirIndex = Utility.GetClosestDirectionIndex(Utility.GetAnimationDirections(), owner.rb.linearVelocity);
+
+        owner.animationHandler.animator.SetFloat(owner.animationHandler.animationData.animParameterData.horizontalParameterHash, Utility.GetAnimationDirections()[closestDirIndex].x);
+        owner.animationHandler.animator.SetFloat(owner.animationHandler.animationData.animParameterData.verticalParameterHash, Utility.GetAnimationDirections()[closestDirIndex].y);
     }
 }

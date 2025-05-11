@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1aced7869ed8e4f94d95fa8a41a79a, type: 3}
   m_Name: MeleeEnemyMovement
   m_EditorClassIdentifier: 
-  runMaxSpeed: 3
-  runAcceleration: 1
-  runDecceleration: 2
-  fleeMaxSpeed: 2
-  fleeAcceleration: 0.75
-  fleeDecceleration: 1
-  strafeMaxSpeed: 2
-  strafeAcceleration: 0.5
+  runMaxSpeed: 5
+  runAcceleration: 2
+  runDecceleration: 3
+  fleeMaxSpeed: 3
+  fleeAcceleration: 1.5
+  fleeDecceleration: 2
+  strafeMaxSpeed: 3
+  strafeAcceleration: 1
   strafeDecceleration: 1

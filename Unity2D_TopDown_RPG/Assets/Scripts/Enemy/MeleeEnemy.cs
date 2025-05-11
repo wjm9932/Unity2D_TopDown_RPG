@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    public ContextBasedSteeringAgent steeringAgent { private set; get; }
     public Rigidbody2D rb { private set; get; }
+    public ContextBasedSteeringAgent steeringAgent { private set; get; }
+    public AnimationHandler<AnimationData<MeleeAnimationEventData, MeleeAnimationParameterData>> animationHandler { private set; get; }
 
     [field: Header("Movement SO")]
     [field: SerializeField] public EnemyMovementSO movementSO { get; private set; }
@@ -16,10 +17,13 @@ public class MeleeEnemy : MonoBehaviour
 
     private BehaviorTree bt;
     private bool isStrafing;
+
     private void Awake()
     {
-        steeringAgent = new ContextBasedSteeringAgent(resolution);
         rb = GetComponent<Rigidbody2D>();
+        steeringAgent = new ContextBasedSteeringAgent(resolution);
+        animationHandler = new AnimationHandler<AnimationData<MeleeAnimationEventData, MeleeAnimationParameterData>>(GetComponentInChildren<Animator>(), 
+            new AnimationData<MeleeAnimationEventData, MeleeAnimationParameterData>());
     }
 
     private void Start()

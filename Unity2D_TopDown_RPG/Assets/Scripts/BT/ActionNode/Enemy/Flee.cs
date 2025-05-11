@@ -13,10 +13,12 @@ public class Flee : IAction
     public void OnEnter()
     {
         Debug.Log("Enter Flee");
+        owner.animationHandler.animator.SetBool(owner.animationHandler.animationData.animParameterData.fleeParameterHash, true);
+
     }
     public NodeState Execute()
     {
-
+        UpdateAnimations();
         return NodeState.Running;
     }
 
@@ -27,7 +29,7 @@ public class Flee : IAction
     }
     public void OnExit()
     {
-
+        owner.animationHandler.animator.SetBool(owner.animationHandler.animationData.animParameterData.fleeParameterHash, false);
     }
 
     void GetInterestWeight()
@@ -67,5 +69,13 @@ public class Flee : IAction
         Vector2 movement = speedDif * owner.movementSO.fleeAccelAmount;
 
         owner.rb.AddForce(movement, ForceMode2D.Force);
+    }
+
+    private void UpdateAnimations()
+    {
+        int closestDirIndex = Utility.GetClosestDirectionIndex(Utility.GetAnimationDirections(), owner.rb.linearVelocity);
+
+        owner.animationHandler.animator.SetFloat(owner.animationHandler.animationData.animParameterData.horizontalParameterHash, Utility.GetAnimationDirections()[closestDirIndex].x);
+        owner.animationHandler.animator.SetFloat(owner.animationHandler.animationData.animParameterData.verticalParameterHash, Utility.GetAnimationDirections()[closestDirIndex].y);
     }
 }

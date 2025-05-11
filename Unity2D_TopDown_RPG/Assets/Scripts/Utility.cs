@@ -2,6 +2,7 @@ using UnityEngine;
 
 public static class Utility
 {
+    private static Vector2[] animationDirections;
     public static float CalculateTimeUntilVelocityBelow(float initialForce, float decelerationFactor, float velocityThreshold)
     {
         if (decelerationFactor <= 0f || decelerationFactor >= 1f)
@@ -35,4 +36,39 @@ public static class Utility
         return directions;
     }
 
+    private static Vector2[] InitializeAnimationDirections()
+    {
+        return GenerateDirections(8);
+    }
+
+    public static Vector2[] GetAnimationDirections()
+    {
+        if(animationDirections == null)
+        {
+            animationDirections = InitializeAnimationDirections();
+        }
+
+        return animationDirections;
+    }
+
+    public static int GetClosestDirectionIndex(Vector2[] directions, Vector2 target)
+    {
+        Vector2 normalizedTarget = target.normalized;
+
+        float maxDot = -1f;
+        int closestIndex = 0;
+
+        for (int i = 0; i < directions.Length; i++)
+        {
+            float dot = Vector2.Dot(normalizedTarget, directions[i].normalized);
+
+            if (dot > maxDot)
+            {
+                maxDot = dot;
+                closestIndex = i;
+            }
+        }
+
+        return closestIndex;
+    }
 }
