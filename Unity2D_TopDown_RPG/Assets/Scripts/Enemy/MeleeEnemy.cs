@@ -11,12 +11,14 @@ public class MeleeEnemy : MonoBehaviour
     [field: SerializeField] public EnemyMovementSO movementSO { get; private set; }
 
     [Header("Steering Data")]
+    [SerializeField] private LayerMask obstacleLayer;
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private int resolution;
     [SerializeField] private GameObject tempTarget;
 
     private BehaviorTree bt;
     private bool isStrafing;
+    private float strafeOffset;
 
     private void Awake()
     {
@@ -29,11 +31,12 @@ public class MeleeEnemy : MonoBehaviour
     private void Start()
     {
         BuildBT();
+        strafeOffset = Random.Range(0f, 3f);
     }
 
     private void Update()
     {
-        steeringAgent.GetDangerWeight(transform.position, targetLayer);
+        steeringAgent.GetDangerWeight(transform.position, obstacleLayer);
         bt.root.Evaluate();
     }
 
@@ -65,17 +68,17 @@ public class MeleeEnemy : MonoBehaviour
     private bool ShouldStrafe(bool currentState)
     {
         float d = Vector2.Distance(transform.position, tempTarget.transform.position);
-
+        d -= strafeOffset;
         bool nextState = currentState;
 
         if (currentState)
         {
-            if (d > 6f)
+            if (d > 5f)
                 nextState = false;
         }
         else
         {
-            if (d >= 3f && d < 5f)
+            if (d <= 4f)
                 nextState = true;
         }
 

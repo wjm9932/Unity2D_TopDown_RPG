@@ -6,14 +6,24 @@ using UnityEngine;
 public class ConditionNode : INode
 {
     private Func<bool> condition;
-
+    private ICondition conditionNode;
     public ConditionNode(Func<bool> condition)
     {
         this.condition = condition;
     }
-
+    public ConditionNode(ICondition conditionNode)
+    {
+        this.conditionNode = conditionNode;
+    }
     public NodeState Evaluate()
     {
-        return condition() ? NodeState.Success : NodeState.Failure;
+        if (conditionNode == null)
+        {
+            return condition() ? NodeState.Success : NodeState.Failure;
+        }
+        else
+        {
+            return conditionNode.IsSatisFy() ? NodeState.Success : NodeState.Failure;
+        }
     }
 }

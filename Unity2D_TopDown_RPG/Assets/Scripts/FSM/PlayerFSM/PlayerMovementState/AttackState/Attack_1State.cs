@@ -27,7 +27,7 @@ public class Attack_1State : IState
         {
             sm.ChangeState(sm.attack_2State);
         }
-        if (normalizedTime >= animationHandler.animationData.animEventTimeData.attack_1FinishTime)
+        else if (normalizedTime >= animationHandler.animationData.animEventTimeData.attack_1FinishTime)
         {
             sm.ChangeState(sm.runState);
         }

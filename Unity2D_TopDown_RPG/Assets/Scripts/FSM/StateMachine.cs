@@ -7,11 +7,20 @@ public abstract class StateMachine
     public IState currentState { get; private set; }
     private IState pendingState;
 
+    //public void ChangeState(IState newState)
+    //{
+    //    pendingState = newState;
+    //}
+
     public void ChangeState(IState newState)
     {
-        pendingState = newState;
+        if (currentState != null)
+        {
+            currentState.Exit();
+        }
+        currentState = newState;
+        currentState.Enter();
     }
-
     public void Update()
     {
         currentState?.Update();
@@ -26,7 +35,7 @@ public abstract class StateMachine
     {
         currentState?.LateUpdate();
 
-        ApplyPendingStateChange();
+        //ApplyPendingStateChange();
     }
 
     private void ApplyPendingStateChange()

@@ -28,7 +28,7 @@ public class Attack_2State : IState
 
     public void FixedUpdate()
     {
-        //Decelerate();
+        Decelerate();
     }
     public void Update()
     {
