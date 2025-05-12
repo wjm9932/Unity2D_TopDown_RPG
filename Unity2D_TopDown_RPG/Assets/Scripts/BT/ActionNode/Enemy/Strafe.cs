@@ -88,7 +88,7 @@ public class Strafe : IAction
 
     private Vector2 PerpendicularVector(bool clockwise)
     {
-        Vector2 toTarget = blackboard.GetData<GameObject>("target").transform.position - owner.transform.position;
+        Vector2 toTarget = blackboard.GetData<Vector3>("spotPosition") - owner.transform.position;
         if (clockwise == true)
         {
             return new Vector2(-toTarget.y, toTarget.x);

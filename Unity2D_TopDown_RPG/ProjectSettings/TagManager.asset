@@ -44,11 +44,8 @@ TagManager:
   - name: FloorLayer
     uniqueID: 184701431
     locked: 0
-  - name: PlayerLayer
+  - name: EntitiyLayer
     uniqueID: 2208753083
-    locked: 0
-  - name: EnemyLayer
-    uniqueID: 3796774259
     locked: 0
   m_RenderingLayers:
   - Default

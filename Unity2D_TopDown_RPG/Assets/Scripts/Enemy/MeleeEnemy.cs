@@ -15,6 +15,7 @@ public class MeleeEnemy : MonoBehaviour
     #region Steering 
     [Header("Steering Data")]
     [SerializeField] private int resolution;
+   
     private bool isStrafing;
     private float strafeOffset;
     #endregion
@@ -25,9 +26,9 @@ public class MeleeEnemy : MonoBehaviour
     [field: SerializeField] public LayerMask targetLayer { private set; get; }
     [field: SerializeField] public float fieldOfView { private set; get; }
     [field: SerializeField] public float viewDistance { private set; get; }
-    public float stopDistance { private set; get; }
-
-    
+    public float trackStopDistance { private set; get; }
+    public float attackStopDistance { private set; get; }
+    public float attackCoolDownTime { private set; get; }
     #endregion
 
     public Vector2 forward { private set; get; } = new Vector2(0f, 1f);
@@ -45,20 +46,20 @@ public class MeleeEnemy : MonoBehaviour
 
     private void Start()
     {
-        BuildBT();
         strafeOffset = Random.Range(0f, 3f);
-        stopDistance = steeringAgent.rayLength + steeringAgent.castRadius + 0.1f + Random.Range(0f, 1f);
+        trackStopDistance = steeringAgent.rayLength + steeringAgent.castRadius + 0.1f + Random.Range(0f, 1f);
+        attackStopDistance = trackStopDistance;
+        ResetAttackTime();
+
+        BuildBT();
     }
 
     private void Update()
     {
-        if(bt.blackboard.GetData<GameObject>("target") != null)
-        {
-            forward = (bt.blackboard.GetData<GameObject>("target").transform.position - transform.position).normalized;
-        }
-
         steeringAgent.GetDangerWeight(transform.position, obstacleLayer);
         bt.root.Evaluate();
+
+        attackCoolDownTime -= Time.deltaTime;
     }
 
     private void FixedUpdate()
@@ -70,7 +71,6 @@ public class MeleeEnemy : MonoBehaviour
     {
         Blackboard blackboard = new Blackboard();
         blackboard.SetData<MeleeEnemy>("owner", this);
-        blackboard.SetData<GameObject>("target", null);
         blackboard.SetData<Vector3>("spotPosition", transform.position);
 
         bt = new BehaviorTreeBuilder(blackboard)
@@ -78,8 +78,13 @@ public class MeleeEnemy : MonoBehaviour
                 .AddSequence()
                     .AddCondition(new IsOnSight(blackboard))
                     .AddSelector()
+                        .AddAttackSequence()
+                            .AddCondition(() => IsAbleAttack())
+                            .AddAction(new Track(blackboard, attackStopDistance))
+                            .AddAction(new Attack(blackboard))
+                        .EndComposite()
                         .AddSequence()
-                            .AddCondition(() => Vector2.Distance(transform.position, blackboard.GetData<GameObject>("target").transform.position) < 3f)
+                            .AddCondition(() => Vector2.Distance(transform.position, blackboard.GetData<Vector3>("spotPosition")) < 3f)
                             .AddAction(new Flee(blackboard))
                         .EndComposite()
                         .AddSequence()
@@ -89,8 +94,8 @@ public class MeleeEnemy : MonoBehaviour
                     .EndComposite()
                 .EndComposite()
                 .AddSequence()
-                    .AddCondition(() => Vector2.Distance(blackboard.GetData<Vector3>("spotPosition"), transform.position) > stopDistance)
-                    .AddAction(new Track(blackboard))
+                    .AddCondition(() => Vector2.Distance(blackboard.GetData<Vector3>("spotPosition"), transform.position) > trackStopDistance)
+                    .AddAction(new Track(blackboard, trackStopDistance))
                 .EndComposite()
                 .AddAction(new Idle(blackboard))
             .EndComposite()
@@ -98,7 +103,7 @@ public class MeleeEnemy : MonoBehaviour
     }
     private bool ShouldStrafe(bool currentState)
     {
-        float d = Vector2.Distance(transform.position, bt.blackboard.GetData<GameObject>("target").transform.position);
+        float d = Vector2.Distance(transform.position, bt.blackboard.GetData<Vector3>("spotPosition"));
         d -= strafeOffset;
         bool nextState = currentState;
 
@@ -117,7 +122,20 @@ public class MeleeEnemy : MonoBehaviour
 
         return nextState;
     }
+    private bool IsAbleAttack()
+    {
+        return attackCoolDownTime <= 0f;
+    }
 
+    public void SetForward(Vector3 target)
+    {
+        forward = (target - transform.position).normalized;
+    }
+
+    public void ResetAttackTime()
+    {
+        attackCoolDownTime = Random.Range(3f, 5f);
+    }
     private void OnDrawGizmos()
     {
         if (steeringAgent == null || steeringAgent.directions == null || steeringAgent.final == null)

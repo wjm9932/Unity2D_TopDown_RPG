@@ -4,10 +4,12 @@ public class Track : IAction
 {
     private Blackboard blackboard;
     private MeleeEnemy owner;
-    public Track(Blackboard blackBoard)
+    private float stopDistance;
+    public Track(Blackboard blackBoard, float stopDistance)
     {
         this.blackboard = blackBoard;
         owner = blackboard.GetData<MeleeEnemy>("owner");
+        this.stopDistance = stopDistance;
     }
 
     public void OnEnter()
@@ -19,8 +21,7 @@ public class Track : IAction
     public NodeState Execute()
     {
         UpdateAnimations();
-        
-        if(Vector2.Distance(blackboard.GetData<Vector3>("spotPosition"), owner.rb.transform.position)  < owner.stopDistance)
+        if(Vector2.Distance(blackboard.GetData<Vector3>("spotPosition"), owner.transform.position) < stopDistance)
         {
             return NodeState.Success;
         }
@@ -40,7 +41,7 @@ public class Track : IAction
 
     void GetInterestWeight()
     {
-        Vector2 toTarget = (blackboard.GetData<Vector3>("spotPosition") - owner.rb.transform.position).normalized;
+        Vector2 toTarget = (blackboard.GetData<Vector3>("spotPosition") - owner.transform.position).normalized;
 
         for (int i = 0; i < owner.steeringAgent.directions.Length; i++)
         {

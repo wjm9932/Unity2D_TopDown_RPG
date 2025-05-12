@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [field: Header("Root")]
+    [field: SerializeField] public Transform rootTransform { private set; get; }
+
     #region Movement 
     [Header("MovementSO")]
     public MovementSO movementType;

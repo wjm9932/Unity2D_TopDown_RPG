@@ -16,7 +16,6 @@ public class IsOnSight : ICondition
 
     private bool IsTargetOnSight()
     {
-        GameObject target = null;
         bool isTargetVisible = false;
 
         var collider = Physics2D.OverlapCircle(owner.transform.position, owner.viewDistance, owner.targetLayer);
@@ -32,14 +31,13 @@ public class IsOnSight : ICondition
 
                 if (hit.collider != null && hit.transform.gameObject == collider.gameObject)
                 {
-                    target = collider.gameObject;
                     isTargetVisible = true;
-                    blackboard.SetData<Vector3>("spotPosition", target.transform.position);
+                    blackboard.SetData<Vector3>("spotPosition", collider.GetComponent<Player>().rootTransform.position);
+                    owner.SetForward(collider.GetComponent<Player>().rootTransform.position);
                 }
             }
         }
 
-        blackboard.SetData<GameObject>("target", target);
         return isTargetVisible;
     }
 }
