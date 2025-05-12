@@ -19,6 +19,7 @@ public class Flee : IAction
     public NodeState Execute()
     {
         UpdateAnimations();
+
         return NodeState.Running;
     }
 

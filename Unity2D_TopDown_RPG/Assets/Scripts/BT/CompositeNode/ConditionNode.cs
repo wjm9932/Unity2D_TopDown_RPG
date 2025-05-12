@@ -23,7 +23,7 @@ public class ConditionNode : INode
         }
         else
         {
-            return conditionNode.IsSatisFy() ? NodeState.Success : NodeState.Failure;
+            return conditionNode.IsSatisfy() ? NodeState.Success : NodeState.Failure;
         }
     }
 }

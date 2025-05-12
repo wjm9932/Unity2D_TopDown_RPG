@@ -261,8 +261,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -498193037
+  m_SortingLayer: 3
   m_SortingOrder: 11
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -306,11 +306,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <movementSO>k__BackingField: {fileID: 11400000, guid: 01fec77328ee9c5409ac50aaa27c8c79, type: 2}
-  targetLayer:
+  resolution: 40
+  <obstacleLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
-  resolution: 40
-  tempTarget: {fileID: 513269309}
+  <targetLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 128
+  <fieldOfView>k__BackingField: 90
+  <viewDistance>k__BackingField: 10
 --- !u!50 &200149002
 Rigidbody2D:
   serializedVersion: 5
@@ -347,7 +351,7 @@ Transform:
   m_GameObject: {fileID: 200149000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.13, y: -5.35, z: 0}
+  m_LocalPosition: {x: 3.25, y: -8.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -450,8 +454,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -498193037
+  m_SortingLayer: 3
   m_SortingOrder: 11
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -528,11 +532,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <movementSO>k__BackingField: {fileID: 11400000, guid: 01fec77328ee9c5409ac50aaa27c8c79, type: 2}
-  targetLayer:
+  resolution: 40
+  <obstacleLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
-  resolution: 40
-  tempTarget: {fileID: 513269309}
+  <targetLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 128
+  <fieldOfView>k__BackingField: 150
+  <viewDistance>k__BackingField: 10
 --- !u!50 &453463562
 Rigidbody2D:
   serializedVersion: 5
@@ -569,7 +577,7 @@ Transform:
   m_GameObject: {fileID: 453463559}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7371596, y: -1.3068376, z: 0}
+  m_LocalPosition: {x: 1.8571595, y: -4.3568373, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -657,7 +665,7 @@ Transform:
   m_GameObject: {fileID: 513269309}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.58, y: -1.89, z: 0}
+  m_LocalPosition: {x: 11.5, y: 4.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -833,7 +841,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.58, y: -1.89, z: -10}
+  m_LocalPosition: {x: 11.5, y: 4.8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1030,8 +1038,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2086214213
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5706,11 +5714,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <movementSO>k__BackingField: {fileID: 11400000, guid: 01fec77328ee9c5409ac50aaa27c8c79, type: 2}
-  targetLayer:
+  resolution: 40
+  <obstacleLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
-  resolution: 40
-  tempTarget: {fileID: 513269309}
+  <targetLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 128
+  <fieldOfView>k__BackingField: 90
+  <viewDistance>k__BackingField: 10
 --- !u!50 &1265642047
 Rigidbody2D:
   serializedVersion: 5
@@ -5747,7 +5759,7 @@ Transform:
   m_GameObject: {fileID: 1265642045}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.38, y: -6.23, z: 0}
+  m_LocalPosition: {x: 3.5, y: -9.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5850,8 +5862,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -498193037
+  m_SortingLayer: 3
   m_SortingOrder: 11
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5965,7 +5977,7 @@ Transform:
   m_GameObject: {fileID: 1578440678}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.58, y: -1.89, z: -10}
+  m_LocalPosition: {x: 11.5, y: 4.8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6002,11 +6014,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <movementSO>k__BackingField: {fileID: 11400000, guid: 01fec77328ee9c5409ac50aaa27c8c79, type: 2}
-  targetLayer:
+  resolution: 40
+  <obstacleLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
-  resolution: 40
-  tempTarget: {fileID: 513269309}
+  <targetLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 128
+  <fieldOfView>k__BackingField: 90
+  <viewDistance>k__BackingField: 10
 --- !u!50 &1628828493
 Rigidbody2D:
   serializedVersion: 5
@@ -6043,7 +6059,7 @@ Transform:
   m_GameObject: {fileID: 1628828491}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.2, y: -2.84, z: 0}
+  m_LocalPosition: {x: 5.3199997, y: -5.8899994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6146,8 +6162,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -498193037
+  m_SortingLayer: 3
   m_SortingOrder: 11
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

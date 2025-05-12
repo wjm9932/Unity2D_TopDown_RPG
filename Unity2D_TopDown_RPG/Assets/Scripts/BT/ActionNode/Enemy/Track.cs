@@ -19,6 +19,11 @@ public class Track : IAction
     public NodeState Execute()
     {
         UpdateAnimations();
+        
+        if(Vector2.Distance(blackboard.GetData<Vector3>("spotPosition"), owner.rb.transform.position)  < owner.stopDistance)
+        {
+            return NodeState.Success;
+        }
 
         return NodeState.Running;
     }
@@ -35,7 +40,7 @@ public class Track : IAction
 
     void GetInterestWeight()
     {
-        Vector2 toTarget = (blackboard.GetData<GameObject>("target").transform.position - owner.rb.transform.position).normalized;
+        Vector2 toTarget = (blackboard.GetData<Vector3>("spotPosition") - owner.rb.transform.position).normalized;
 
         for (int i = 0; i < owner.steeringAgent.directions.Length; i++)
         {

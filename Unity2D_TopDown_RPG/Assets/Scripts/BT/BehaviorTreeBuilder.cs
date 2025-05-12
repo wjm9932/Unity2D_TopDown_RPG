@@ -63,7 +63,11 @@ public class BehaviorTreeBuilder
         currentNode.AddChild(new ConditionNode(condition));
         return this;
     }
-
+    public BehaviorTreeBuilder AddCondition(ICondition condition)
+    {
+        currentNode.AddChild(new ConditionNode(condition));
+        return this;
+    }
     public BehaviorTreeBuilder AddAction(IAction action)
     {
         currentNode.AddChild(new ActionNode(action, actionManager, compositionNodeIndex));

@@ -9,7 +9,7 @@ public class ContextBasedSteeringAgent
     public float rayLength { private set; get; }
     public float castRadius { private set; get; }
 
-    public ContextBasedSteeringAgent(int resolution, float rayLength = 1f, float castRadius = 1f)
+    public ContextBasedSteeringAgent(int resolution, float rayLength = 0.5f, float castRadius = 1f)
     {
         directions = Utility.GenerateDirections(resolution);
         interest = new float[resolution];

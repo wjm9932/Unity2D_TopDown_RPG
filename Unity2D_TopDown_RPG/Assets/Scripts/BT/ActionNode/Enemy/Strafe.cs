@@ -28,7 +28,7 @@ public class Strafe : IAction
     {
         ChangeStrafeDirectionAndDuration();
         UpdateAnimations();
-
+        
         return NodeState.Running;
     }
 

@@ -12,7 +12,9 @@ public class Idle : IAction
 
     public void OnEnter()
     {
+        Debug.Log("Enter Idle");
 
+        UpdateAnimations();
     }
     public NodeState Execute()
     {
@@ -33,5 +35,13 @@ public class Idle : IAction
         Vector2 movement = speedDif * owner.movementSO.runDeccelAmount;
 
         owner.rb.AddForce(movement, ForceMode2D.Force);
+    }
+
+    private void UpdateAnimations()
+    {
+        int closestDirIndex = Utility.GetClosestDirectionIndex(Utility.GetAnimationDirections(), owner.forward);
+
+        owner.animationHandler.animator.SetFloat(owner.animationHandler.animationData.animParameterData.horizontalParameterHash, Utility.GetAnimationDirections()[closestDirIndex].x);
+        owner.animationHandler.animator.SetFloat(owner.animationHandler.animationData.animParameterData.verticalParameterHash, Utility.GetAnimationDirections()[closestDirIndex].y);
     }
 }
